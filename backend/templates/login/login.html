@@ -5,9 +5,42 @@
 </%block>
 
 <%block name="content">
-    <h1> HELLO Login Page</h1>
+<h3>Hello Login</h3>
+<div class="form-group">
+    <label for="email">Email address</label>
+    <input type="text" class="form-control" id="email" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" placeholder="Password">
+  </div>
+
+<button type="button" class="btn btn-primary" onclick="login()">Login</button>
 </%block>
 
+
 <%block name="js">
+<script>
+function login() {
+    var email = $('#email').val();
+    var password = $('#password').val();
+    var csrf_token = $('.csrf_token').html();
+    console.log('email :', email);
+    console.log('password :', password);
+    $.post( "/api_login",
+        { email : email, password : password, csrfmiddlewaretoken: csrf_token })
+        .done(function( data ) {
+        if(data.result == "success"){
+            //window.location.href = "/";
+            alert("Login Success")
+        }
+        else{
+            alert("Error");
+        }
+    });
+};
+</script>
+
 
 </%block>
