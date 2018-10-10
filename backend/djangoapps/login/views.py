@@ -17,7 +17,7 @@ def api_login(request):
         query = '''
                 SELECT count(*)
                 FROM user 
-                WHERE id='{email}' AND password='{password}';
+                WHERE id='{email}' AND password='{password}'
             '''.format(email=email, password=password)
         print(query)
         cur.execute(query)
@@ -39,6 +39,6 @@ def api_regist(request):
             INSERT INTO user(id, password) 
             VALUES ('{email}','{password}');
         '''.format(email=email, password=password)
-    cur.execute(query)
+        cur.execute(query)
 
     return JsonResponse({'result':'success'})
