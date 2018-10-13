@@ -32,6 +32,7 @@
     </div>
 
     <button type="button" class="btn btn-primary" onclick="regist()">Regist</button>
+    <button type="button" class="btn btn-primary CL" onclick="">Close</button>
 </div>
 
 </%block>
@@ -40,11 +41,13 @@
 <%block name="js">
 <script>
     $(".register").hide();
-    {
-        $(".CA").click(function () {
-            $(".register").toggle();
-        });
-    }
+
+    $(".CA").click(function () {
+        $(".register").show(1000);
+    });
+    $(".CL").click(function () {
+        $(".register").hide(1000);
+    });
 
     function login() {
         var email = $('#email').val();
