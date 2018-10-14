@@ -52,6 +52,7 @@
         }
     }
 </style>
+
 </%block>
 
 <%block name="content">
@@ -92,8 +93,8 @@
 
 </%block>
 
-
 <%block name="js">
+
 <script>
     $(document).ready(function () {
         $('.regist-container').hide()
@@ -106,11 +107,11 @@
             $('.login-container').show();
             $(".regist-container").hide();
         });
-        $("#login_password").keyup(function(e){
-            if(e.keyCode == 13)  login();
+        $("#login_password").keyup(function (e) {
+            if (e.keyCode == 13) login();
         });
-        $("#regist_password").keyup(function(e){
-            if(e.keyCode == 13)  regist();
+        $("#regist_password").keyup(function (e) {
+            if (e.keyCode == 13) regist();
         });
     });
 
@@ -134,7 +135,14 @@
                 .done(function (data) {
                     if (data.result == "success") {
                         //window.location.href = "/";
-                        alert("Login Success")
+
+                        swal({
+                            type: 'success',
+                            title: '로그인 완료',
+                            text: '로그인 되었습니다 !!!',
+                        }).then((result) => {
+                            window.location.href = "/board";
+                        });
                     }
                     else {
                         swal({
