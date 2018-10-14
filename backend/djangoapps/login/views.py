@@ -51,3 +51,4 @@ def api_regist(request):
 
 
 # *sha256 길이 = 64자리, salt줘야함,
+# login 후 세션 생성 및 세션 체크하도록 만들 것.
