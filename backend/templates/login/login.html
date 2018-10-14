@@ -2,65 +2,77 @@
 
 <%block name="css">
 <style>
-  .common-container {
-    padding: 30px;
-    width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .common-email {
-    margin-bottom: 10px;
-  }
-  .login-container {
-    position: relative;
-    animation-name: ani_downup;
-    animation-duration: 0.8s;
-  }
-  .regist-container {
-    position: relative;
-    animation-name: ani_downup;
-    animation-duration: 0.8s;
-  }
-  .top-title {
-    text-align: center;
-    margin-bottom: 30px;
-    font-family: 'Open Sans', sans-serif;
-  }
-  .common-up {
-    width: 100%;
-  }
-  .move-account {
-    width: 100%;
-  }
-  .move-login {
-    width: 100%;
-  }
-  @keyframes ani_downup {
-    0%   {top:30px;}
-    100% {top:0px;}
-  }
+    .common-container {
+        padding: 30px;
+        width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .common-email {
+        margin-bottom: 10px;
+    }
+
+    .login-container {
+        position: relative;
+        animation-name: ani_downup;
+        animation-duration: 0.8s;
+    }
+
+    .regist-container {
+        position: relative;
+        animation-name: ani_downup;
+        animation-duration: 0.8s;
+    }
+
+    .top-title {
+        text-align: center;
+        margin-bottom: 30px;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .common-up {
+        width: 100%;
+    }
+
+    .move-account {
+        width: 100%;
+    }
+
+    .move-login {
+        width: 100%;
+    }
+
+    @keyframes ani_downup {
+        0% {
+            top: 30px;
+        }
+        100% {
+            top: 0px;
+        }
+    }
 </style>
 </%block>
 
 <%block name="content">
 
 <div class='login-container common-container'>
-  <h3 class='top-title'>로그인</h3>
-  <div class="form-login common-email">
-      <label for="email"><i class="far fa-envelope-open" style='margin-right: 6px;'></i>이메일</label>
-      <input type="text" class="form-control" id="login_email" placeholder="이메일을 입력해주세요">
-  </div>
-  <div class="form-group">
-      <label for="password"><i class="fas fa-unlock" style='margin-right: 6px;'></i>비밀번호</label>
-      <input type="password" class="form-control" id="login_password" placeholder="비밀번호를 입력해주세요">
-  </div>
+    <h3 class='top-title'>로그인</h3>
+    <div class="form-login common-email">
+        <label for="email"><i class="far fa-envelope-open" style='margin-right: 6px;'></i>이메일</label>
+        <input type="text" class="form-control" id="login_email" placeholder="이메일을 입력해주세요">
+    </div>
+    <div class="form-group">
+        <label for="password"><i class="fas fa-unlock" style='margin-right: 6px;'></i>비밀번호</label>
+        <input type="password" class="form-control" id="login_password" placeholder="비밀번호를 입력해주세요">
+    </div>
 
-  <div>
-    <button type="button" class="btn btn-success common-up" onclick="login()">Login</button>
-  </div>
-  <div>
-    <button type="button" class="btn btn-secondary move-account" onclick="">Create Account</button>
-  </div>
+    <div>
+        <button type="button" class="btn btn-success common-up" onclick="login()">Login</button>
+    </div>
+    <div>
+        <button type="button" class="btn btn-secondary move-account" onclick="">Create Account</button>
+    </div>
 </div>
 
 <div class="regist-container common-container">
@@ -83,91 +95,99 @@
 
 <%block name="js">
 <script>
-$( document ).ready(function() {
-    $('.regist-container').hide()
+    $(document).ready(function () {
+        $('.regist-container').hide()
 
-    $(".move-account").click(function () {
-        $('.login-container').hide();
-        $(".regist-container").show();
-    });
-    $(".move-login").click(function () {
-        $('.login-container').show();
-        $(".regist-container").hide();
-    });
-});
-
-function login() {
-    var email = $('#login_email').val();
-    var password = $('#login_password').val();
-    var csrf_token = $('.csrf_token').html();
-    var lock = 0;
-
-    if(email == '') {
-      $('#login_email').focus();
-      lock = 1;
-    }
-    else if(password == '') {
-      $('#login_password').focus();
-      lock = 1;
-    }
-    if(lock == 0) {
-      $.post("/api_login",
-          {email: email, password: password, csrfmiddlewaretoken: csrf_token})
-          .done(function (data) {
-              if (data.result == "success") {
-                  //window.location.href = "/";
-                  alert("Login Success")
-              }
-              else {
-                swal({
-                  type: 'error',
-                  title: '알림',
-                  text: '이메일 또는 비밀번호가 올바르지 않습니다',
-                })
-              }
-          });
-    }
-
-};
-
-function regist() {
-    var email = $('#regist_email').val();
-    var password = $('#regist_password').val();
-    var csrf_token = $('.csrf_token').html();
-    var lock = 0;
-
-    if(email == '') {
-      $('#regist_email').focus();
-      lock = 1;
-    }
-    else if(password == '') {
-      $('#regist_password').focus();
-      lock = 1;
-    }
-    if(lock == 0) {
-      $.post("/api_regist",
-          {email: email, password: password, csrfmiddlewaretoken: csrf_token})
-          .done(function (data) {
-              if (data.result == "success") {
-                swal({
-                  type: 'success',
-                  title: '회원가입 완료',
-                  text: '회원가입이 완료되었습니다 !!!',
-                }).then((result) => {
-                  window.location.href = "/login";
-                });
-              }
-              else {
-                swal({
-                  type: 'error',
-                  title: '회원가입 실패',
-                  text: '관리자에게 문의해주세요',
-                })
-              }
+        $(".move-account").click(function () {
+            $('.login-container').hide();
+            $(".regist-container").show();
         });
-    }
-};
+        $(".move-login").click(function () {
+            $('.login-container').show();
+            $(".regist-container").hide();
+        });
+        $("#login_password").keyup(function(e){
+            if(e.keyCode == 13)  login();
+        });
+        $("#regist_password").keyup(function(e){
+            if(e.keyCode == 13)  regist();
+        });
+    });
+
+    function login() {
+        var email = $('#login_email').val();
+        var password = $('#login_password').val();
+        var csrf_token = $('.csrf_token').html();
+        var lock = 0;
+
+        if (email == '') {
+            $('#login_email').focus();
+            lock = 1;
+        }
+        else if (password == '') {
+            $('#login_password').focus();
+            lock = 1;
+        }
+        if (lock == 0) {
+            $.post("/api_login",
+                {email: email, password: password, csrfmiddlewaretoken: csrf_token})
+                .done(function (data) {
+                    if (data.result == "success") {
+                        //window.location.href = "/";
+                        alert("Login Success")
+                    }
+                    else {
+                        swal({
+                            type: 'error',
+                            title: '알림',
+                            text: '이메일 또는 비밀번호가 올바르지 않습니다',
+                        })
+                    }
+                });
+        }
+
+    };
+
+    function regist() {
+        var email = $('#regist_email').val();
+        var password = $('#regist_password').val();
+        var csrf_token = $('.csrf_token').html();
+        var lock = 0;
+
+        if (email == '') {
+            $('#regist_email').focus();
+            lock = 1;
+        }
+        else if (password == '') {
+            $('#regist_password').focus();
+            lock = 1;
+        }
+        if (lock == 0) {
+            $.post("/api_regist",
+                {email: email, password: password, csrfmiddlewaretoken: csrf_token})
+                .done(function (data) {
+                    if (data.result == "success") {
+                        swal({
+                            type: 'success',
+                            title: '회원가입 완료',
+                            text: '회원가입이 완료되었습니다 !!!',
+                        }).then((result) => {
+                            window.location.href = "/login";
+                        });
+                    }
+                    else {
+                        swal({
+                            type: 'error',
+                            title: '회원가입 실패',
+                            text: '관리자에게 문의해주세요',
+                        })
+                    }
+                });
+        }
+    };
 </script>
 
 
 </%block>
+
+

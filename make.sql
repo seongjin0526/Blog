@@ -18,3 +18,4 @@ modify_date datetime default null
 );
 
 insert into user(id, password) values ('test', 'test');
+
