@@ -8,6 +8,7 @@ urlpatterns = [
     url('api_login$', LoginViews.api_login, name="api_login"),
     url('api_regist', LoginViews.api_regist, name='api_regist'),
     url('login$', LoginViews.login, name='login'),
-    url('board$', BoardViews.login, name='board'),
+    url('board$', BoardViews.board, name='board'),
+    url('$', BoardViews.board, name='board'),
 
 ]
