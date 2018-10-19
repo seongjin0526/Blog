@@ -9,7 +9,7 @@ def board(request):
     if 'email' not in request.session:
         return redirect('/login')
     else:
-        email = request.session['email']
+        email = request.session['email'] # check Session
 
     context['email'] = email
     return render(request, 'board/board.html', context)

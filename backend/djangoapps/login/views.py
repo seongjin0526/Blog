@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_protect
 from django.db import connections
+from django.shortcuts import redirect
 
 def login(request):
     context = {}
+    if 'email' in request.session: # if exist session go board page
+        return redirect('/board')
+
     return render(request, 'login/login.html', context)
 
 def api_login(request):
