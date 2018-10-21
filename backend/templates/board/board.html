@@ -12,10 +12,13 @@
 <%block name="content">
 
 <div>
-<h3>Hello ${email}!</h3>
+    <h3>Hello ${email}!</h3>
 
-<h3>Board</h3>
+    <h3>Board</h3>
 
+    <div>
+        <button type="button" class="btn btn-success common-up" onclick="logout()">Logout</button>
+    </div>
 
 </div>
 
@@ -25,6 +28,29 @@
 <%block name="js">
 
 <script>
+    function logout() {
+        var csrf_token = $('.csrf_token').html();
+        $.post("/api_logout",
+            {csrfmiddlewaretoken: csrf_token})
+            .done(function (data) {
+                if (data.result == "success") {
+                    swal({
+                        type: 'success',
+                        title: '로그아웃 완료',
+                        text: '로그아웃 되었습니다 !!!',
+                    }).then((result) => {
+                        window.location.href = "/";
+                    });
+                }
+                else {
+                    swal({
+                        type: 'error',
+                        title: '알림',
+                        text: '로그아웃에 실패했습니다',
+                    })
+                }
+            });
+    };
 
 </script>
 

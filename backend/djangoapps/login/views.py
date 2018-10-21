@@ -29,6 +29,7 @@ def api_login(request):
 
     if rows[0][0] != 0:
         request.session['email'] = email
+        request.session.set_expiry(900)
         return JsonResponse({'result':'success'}) #session up
 
     return JsonResponse({'result':'false'})
@@ -53,5 +54,9 @@ def api_regist(request):
 
     return JsonResponse({'result':'success'})
 
-
-# login 후 세션 생성 및 세션 체크하도록 만들 것.
+def api_logout(request):
+    try:
+        del request.session['email']
+    except KeyError:
+        pass
+    return JsonResponse({'result':'success'})
