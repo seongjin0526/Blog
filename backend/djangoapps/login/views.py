@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.db import connections
 from django.shortcuts import redirect
+from django.contrib.auth.hashers import make_password, check_password
 
 def login(request):
     context = {}
@@ -12,7 +13,7 @@ def login(request):
 
 def api_login(request):
     email = request.POST.get('email')
-    password = request.POST.get('password')
+    password = make_password(request.POST.get('password'), 'steeljin','default')
 
     with connections['default'].cursor() as cur:
         query = '''
@@ -34,7 +35,7 @@ def api_login(request):
 
 def api_regist(request):
     email = request.POST.get('email')
-    password = request.POST.get('password')
+    password = make_password(request.POST.get('password'), 'steeljin','default')
 
 # if 문으로 email및 password공백 일경우와 @이메일 형식 아닌 경우 등을 거르는 기능 필요.
 # 또한 SQLinjection Filter만들것
@@ -53,5 +54,4 @@ def api_regist(request):
     return JsonResponse({'result':'success'})
 
 
-# *sha256 길이 = 64자리, salt줘야함,
 # login 후 세션 생성 및 세션 체크하도록 만들 것.
