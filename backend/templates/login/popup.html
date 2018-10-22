@@ -1,0 +1,17 @@
+<html>
+<head>
+  <title>Cookie Test</title>
+</head>
+<body>
+  <h1>Popup</h1>
+</body>
+
+<script>
+function getCookie(name){
+  var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+  return value? value[2] : null;
+}
+
+alert( getCookie('name') );
+</script>
+</html>

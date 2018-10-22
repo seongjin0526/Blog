@@ -1,107 +1,131 @@
-<%inherit file="../common/main_base.html"/>
-
-<%block name="css">
-<style>
-    .common-container {
-        padding: 30px;
-        width: 500px;
-        margin-left: auto;
-        margin-right: auto;
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Open+Sans|Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+  <style>
+    html, body{
+      background-color: #637c96;
     }
-
-    .common-email {
-        margin-bottom: 10px;
+    body{
+      font-family: 'Open Sans', sans-serif;
     }
+  </style>
+  <style>
+      .common-container {
+          padding-left: 30px;
+          padding-right: 30px;
+          padding-top: 50px;
+          padding-bottom: 50px;
+          width: 500px;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 200px;
+          border: solid 1px #333333;
+          border-radius: 10px;
+          background-color: #ffffff;
+          box-shadow: rgba(0, 0, 0, 0.14) 0px 8px 10px 0px, rgba(0, 0, 0, 0.15) 0px 4px 4px 0px;
+      }
 
-    .login-container {
-        position: relative;
-        animation-name: ani_downup;
-        animation-duration: 0.8s;
-    }
+      .common-email {
+          margin-bottom: 10px;
+      }
 
-    .regist-container {
-        position: relative;
-        animation-name: ani_downup;
-        animation-duration: 0.8s;
-    }
+      .login-container {
+          position: relative;
+          animation-name: ani_downup;
+          animation-duration: 0.8s;
+      }
 
-    .top-title {
-        text-align: center;
-        margin-bottom: 30px;
-        font-family: 'Open Sans', sans-serif;
-    }
+      .regist-container {
+          position: relative;
+          animation-name: ani_downup;
+          animation-duration: 0.8s;
+      }
 
-    .common-up {
-        width: 100%;
-    }
+      .top-title {
+          text-align: center;
+          margin-bottom: 30px;
+          font-family: 'Open Sans', sans-serif;
+      }
 
-    .move-account {
-        width: 100%;
-    }
+      .common-up {
+          width: 100%;
+      }
 
-    .move-login {
-        width: 100%;
-    }
+      .move-account {
+          width: 100%;
+      }
 
-    @keyframes ani_downup {
-        0% {
-            top: 30px;
-        }
-        100% {
-            top: 0px;
-        }
-    }
-</style>
+      .move-login {
+          width: 100%;
+      }
 
-</%block>
+      .register-email {
+          width: 80%;
+          float: left;
+      }
+      .register-check {
+          width: 20%
+      }
 
-<%block name="content">
+      @keyframes ani_downup {
+          0% {
+              top: 30px;
+          }
+          100% {
+              top: 0px;
+          }
+      }
+  </style>
+</head>
+<body>
 
-<div class='login-container common-container'>
-    <h3 class='top-title'>로그인</h3>
-    <div class="form-login common-email">
-        <label for="email"><i class="far fa-envelope-open" style='margin-right: 6px;'></i>이메일</label>
-        <input type="text" class="form-control" id="login_email" placeholder="이메일을 입력해주세요">
-    </div>
-    <div class="form-group">
-        <label for="password"><i class="fas fa-unlock" style='margin-right: 6px;'></i>비밀번호</label>
-        <input type="password" class="form-control" id="login_password" placeholder="비밀번호를 입력해주세요">
-    </div>
+  <div class='login-container common-container'>
+      <h3 class='top-title'>로그인</h3>
+      <div class="form-login common-email">
+          <label for="email"><i class="far fa-envelope-open" style='margin-right: 6px;'></i>이메일</label>
+          <input type="text" class="form-control" id="login_email" placeholder="이메일을 입력해주세요">
+      </div>
+      <div class="form-group">
+          <label for="password"><i class="fas fa-unlock" style='margin-right: 6px;'></i>비밀번호</label>
+          <input type="password" class="form-control" id="login_password" placeholder="비밀번호를 입력해주세요">
+      </div>
 
-    <div>
-        <button type="button" class="btn btn-primary common-up" onclick="login()">Login</button>
-    </div>
-    <div>
-        <button type="button" class="btn btn-secondary move-account" onclick="">Create Account</button>
-    </div>
-</div>
+      <div>
+          <button type="button" class="btn btn-primary common-up" onclick="login()">Login</button>
+      </div>
+      <div>
+          <button type="button" class="btn btn-secondary move-account" onclick="">Create Account</button>
+      </div>
+  </div>
 
-<div class="regist-container common-container">
-    <h3 class='top-title'>회원가입</h3>
-    <div class="form-register common-email">
-        <label for="email"><i class="far fa-envelope-open" style='margin-right: 6px;'></i>이메일</label>
-        <input type="text" class="form-control" id="regist_email" placeholder="이메일을 입력해주세요">
-        <button type="button" class="btn btn-success common-up" onclick="check_email()">Check</button>
+  <div class="regist-container common-container">
+      <h3 class='top-title'>회원가입</h3>
 
-    </div>
-    <div class="form-group">
-        <label for="password"><i class="fas fa-unlock" style='margin-right: 6px;'></i>비밀번호</label>
-        <input type="password" class="form-control regist-check" id="regist_password" placeholder="비밀번호를 입력해주세요">
-    </div>
+      <i class="far fa-envelope-open" style='margin-right: 6px;'></i>이메일
+      <div class="form-register common-email">
+          <input type="text" class="form-control register-email" id="regist_email" placeholder="이메일을 입력해주세요">
+          <button type="button" class="btn btn-success common-up register-check" onclick="check_email()">Check</button>
+      </div>
+      <div class="form-group">
+          <label for="password"><i class="fas fa-unlock" style='margin-right: 6px;'></i>비밀번호</label>
+          <input type="password" class="form-control regist-check" id="regist_password" placeholder="비밀번호를 입력해주세요">
+      </div>
 
-    <div class="form-group">
-        <label for="password"><i class="fas fa-unlock" style='margin-right: 6px;'></i>비밀번호 확인</label>
-        <input type="password" class="form-control regist-check" id="regist_password_check" placeholder="비밀번호를 입력해주세요">
-    </div>
+      <div class="form-group">
+          <label for="password"><i class="fas fa-unlock" style='margin-right: 6px;'></i>비밀번호 확인</label>
+          <input type="password" class="form-control regist-check" id="regist_password_check" placeholder="비밀번호를 입력해주세요">
+      </div>
 
-    <button type="button" class="btn btn-primary  common-up" onclick="regist()">Regist</button>
-    <button type="button" class="btn btn-secondary move-login" onclick="">Login</button>
-</div>
+      <button type="button" class="btn btn-primary  common-up" onclick="regist()">Regist</button>
+      <button type="button" class="btn btn-secondary move-login" onclick="">Login</button>
+  </div>
+</body>
 
-</%block>
-
-<%block name="js">
-
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.5/dist/sweetalert2.all.min.js"></script>
 <script>
     $(document).ready(function () {
         $('.regist-container').hide()
@@ -290,8 +314,5 @@
         ;
     };
 
-
 </script>
-
-
-</%block>
+</html>
