@@ -34,6 +34,14 @@ def api_login(request):
 
     return JsonResponse({'result':'false'})
 
+
+def api_logout(request):
+    try:
+        del request.session['email']
+    except KeyError:
+        pass
+    return JsonResponse({'result':'success'})
+
 def api_regist(request):
     email = request.POST.get('email')
     password = make_password(request.POST.get('password'), 'steeljin','default')
@@ -54,9 +62,19 @@ def api_regist(request):
 
     return JsonResponse({'result':'success'})
 
-def api_logout(request):
-    try:
-        del request.session['email']
-    except KeyError:
-        pass
-    return JsonResponse({'result':'success'})
+def api_check(request):
+    email = request.POST.get('email')
+
+    with connections['default'].cursor() as cur:
+        query = '''
+                SELECT count(*)
+                FROM user 
+                WHERE id='{email}';
+        '''.format(email=email)
+        cur.execute(query)
+        rows = cur.fetchall()
+
+    if rows[0][0] != 0:
+        return JsonResponse({'result': 'False'})
+
+    return JsonResponse({'result': 'True'})
