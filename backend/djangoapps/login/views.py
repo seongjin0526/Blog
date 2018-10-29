@@ -62,7 +62,7 @@ def api_regist(request):
 
     return JsonResponse({'result':'success'})
 
-def api_check(request):
+def api_email_check(request):
     email = request.POST.get('email')
 
     with connections['default'].cursor() as cur:
