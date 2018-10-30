@@ -147,10 +147,12 @@
         $(".move-account").click(function () {
             $('.login-container').hide();
             $(".regist-container").show();
+            clear();
         });
         $(".move-login").click(function () {
             $('.login-container').show();
             $(".regist-container").hide();
+            clear();
         });
         $("#login_password").keyup(function (e) {
             if (e.keyCode == 13) login();
@@ -159,7 +161,6 @@
             if (e.keyCode == 13) {
                 $("#regist_password").focus();
             }
-            ;
         });
         $("#regist_password_check").keyup(function (e) {
             if (e.keyCode == 13) regist();
@@ -170,7 +171,6 @@
                 $("#regist_password_check").css("background-color", "pink ");
                 $("#regist_password_check").focus();
             }
-            ;
         });
         $("#regist_email").keyup(function (e) {
             if (at_check($("#regist_email").val())) {
@@ -180,7 +180,6 @@
             else {
                 $("#regist_email").css("background-color", "pink ");
             }
-            ;
         });
 
         $("#login_email").keyup(function (e) {
@@ -189,14 +188,11 @@
                 if (e.keyCode == 13) {
                     $('#login_password').focus();
                 }
-                ;
             }
             else {
                 $("#login_email").css("background-color", "pink ");
             }
-            ;
         });
-
     })
     ;
 
@@ -246,8 +242,7 @@
                     }
                 });
         }
-
-    };
+    }
 
     function check_email() {
         var email = $('#regist_email').val();
@@ -281,9 +276,7 @@
                     }
                 });
         }
-        ;
-
-    };
+    }
 
     function check_password() {
         if ($('#regist_password').val() == $('#regist_password_check').val()) {
@@ -291,7 +284,6 @@
         }
         return false;
     }
-
     function regist() {
         var email = $('#regist_email').val();
         var password = $('#regist_password').val();
@@ -338,8 +330,12 @@
                     }
                 });
         }
-        ;
-    };
+    }
+    function clear() {
+        $(".form-control").each(function () {
+            this.value="";
+        });
+    }
 
 </script>
 </html>
