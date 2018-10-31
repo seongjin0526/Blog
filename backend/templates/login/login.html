@@ -159,7 +159,7 @@
         });
         $("#regist_password").keyup(function (e) {
             if (e.keyCode == 13) {
-                $("#regist_password").focus();
+                $("#regist_password_check").focus();
             }
         });
         $("#regist_password_check").keyup(function (e) {
@@ -169,7 +169,6 @@
             }
             else {
                 $("#regist_password_check").css("background-color", "pink ");
-                $("#regist_password_check").focus();
             }
         });
         $("#regist_email").keyup(function (e) {
@@ -238,7 +237,10 @@
                             type: 'error',
                             title: '알림',
                             text: '이메일 또는 비밀번호가 올바르지 않습니다',
-                        })
+                            onAfterClose: () => {
+                                $('#login_password').focus();
+                            }
+                        });
                     }
                 });
         }
@@ -261,8 +263,9 @@
                             type: 'success',
                             title: '중복 체크 완료',
                             text: '이 아이디로 가입하시면 됩니다!!!',
-                        }).then((result) => {
-                            $('#regist_password').focus();
+                            onAfterClose: () => {
+                                $('#regist_password').focus();
+                            }
                         });
                     }
                     else {
@@ -270,8 +273,9 @@
                             type: 'error',
                             title: '알림',
                             text: '이미 가입된 아이디 입니다!!!',
-                        }).then((result) => {
-                            $('#regist_email').focus();
+                            onAfterClose: () => {
+                                $('#regist_email').focus();
+                            }
                         });
                     }
                 });
@@ -284,6 +288,7 @@
         }
         return false;
     }
+
     function regist() {
         var email = $('#regist_email').val();
         var password = $('#regist_password').val();
@@ -304,8 +309,9 @@
                 type: 'error',
                 title: '회원가입 실패',
                 text: '비밀번호와 비밀번호 확인이 일치하지 않습니다!!!',
-            }).then((result) => {
-                $('#regist_password_check').focus();
+                onAfterClose: () => {
+                    $('#regist_password_check').focus();
+                }
             });
         }
         if (lock == 0) {
@@ -326,14 +332,18 @@
                             type: 'error',
                             title: '회원가입 실패',
                             text: '관리자에게 문의해주세요',
+                            onAfterClose: () => {
+                                $('#regist_password_check').focus();
+                            }
                         })
                     }
                 });
         }
     }
+
     function clear() {
         $(".form-control").each(function () {
-            this.value="";
+            this.value = "";
         });
     }
 
